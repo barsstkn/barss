@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barış Burak Tiken - Backend Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --card-bg: #f8fafc;
+            --hover-color: #818cf8;
+            --border-color: #e2e8f0;
+        }
+
+        .dark-theme {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --primary-color: #818cf8;
+            --secondary-color: #6366f1;
+            --card-bg: #1e293b;
+            --hover-color: #a5b4fc;
+            --border-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: left;
+            color: #ffffff;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            background: var(--hover-color);
+        }
+
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 0;
+            background: transparent;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: var(--bg-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar.scrolled .logo,
+        .navbar.scrolled .nav-links a {
+            color: var(--text-color);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        
+        .about {
+            padding: 6rem 0;
+            background: var(--bg-color);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        
+        .skills {
+            padding: 6rem 0;
+            background: var(--card-bg);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        
+        .projects {
+            padding: 6rem 0;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        
+        .contact {
+            padding: 6rem 0;
+            background: var(--card-bg);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--hover-color);
+        }
+
+        
+        footer {
+            background: var(--card-bg);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">BBT</a>
+            <ul class="nav-links">
+                <li><a href="#about">Hakkımda</a></li>
+                <li><a href="#skills">Yetenekler</a></li>
+                <li><a href="#projects">Projeler</a></li>
+                <li><a href="#contact">İletişim</a></li>
+                <li><button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Barış Burak Tiken</h1>
+            <p>Backend Developer </p>
+            <a href="#contact" class="cta-button">İletişime Geç</a>
+        </div>
+    </section>
+
+    
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?auto=format&fit=crop&w=800&q=80" 
+                         alt="Barış Burak Tiken">
+                </div>
+                <div class="about-content">
+                    <h2>Hakkımda</h2>
+                    <p>Merhaba! Ben Barış Burak Tiken. 6 aylık deneyime sahip bir Backend Developer'ım. 
+                    Karmaşık problemleri çözmekten ve yenilikçi teknolojiler kullanmaktan keyif alıyorum.</p>
+                    <p>Özellikle PHP, Node.js ve veritabanı sistemleri konusuna çalışıyorum. 
+                    Mikroservis mimarileri ve DevOps pratikleri konusunda da aktif olarak uğraşıyorum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Yeteneklerim</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-php skill-icon"></i>
+                    <h3>PHP</h3>
+                    <p>Laravel, Symfony, REST API</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-node-js skill-icon"></i>
+                    <h3>Node.js</h3>
+                    <p>Express, NestJS, GraphQL</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database skill-icon"></i>
+                    <h3>Veritabanları</h3>
+                    <p>MySQL, MongoDB, Redis</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-docker skill-icon"></i>
+                    <h3>DevOps</h3>
+                    <p>Docker, Kubernetes, CI/CD</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>Projelerim</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" 
+                             alt="E-Ticaret API">
+                    </div>
+                    <div class="project-info">
+                        <h3>E-Ticaret API</h3>
+                        <p>Mikroservis mimarisi ile geliştirilmiş kapsamlı bir e-ticaret backend sistemi.</p>
+                        <div class="project-tags">
+                            <span>PHP</span>
+                            <span>Laravel</span>
+                            <span>MySQL</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1555066931-bf19f8fd1085?auto=format&fit=crop&w=800&q=80" 
+                             alt="Real-time Chat">
+                    </div>
+                    <div class="project-info">
+                        <h3>Real-time Chat Sistemi</h3>
+                        <p>WebSocket kullanarak geliştirilmiş gerçek zamanlı mesajlaşma uygulaması.</p>
+                        <div class="project-tags">
+                            <span>Node.js</span>
+                            <span>Socket.io</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>İletişime Geç</h2>
+            <form class="contact-form" action="contact.php" method="POST">
+                <div class="form-group">
+                    <label for="name">Ad Soyad</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-posta</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mesaj</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Barış Burak Tiken. Tüm hakları saklıdır.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/@barss_tkn/"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        
+        document.querySelector('.contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const response = await fetch('contact.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    alert('Mesajınız başarıyla gönderildi!');
+                    e.target.reset();
+                } else {
+                    throw new Error('Bir hata oluştu');
+                }
+            } catch (error) {
+                alert('Mesaj gönderilemedi. Lütfen tekrar deneyin.');
+            }
+        });
+    </script>
+
+</body>
+</html>
